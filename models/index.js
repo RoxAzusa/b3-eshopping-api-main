@@ -25,7 +25,7 @@ Right.hasMany(User);
 User.belongsTo(Right);
 
 // Synchronisation de la base
-sequelize.sync({alter: true});
+// sequelize.sync({alter: true});
 
 
 module.exports = {
