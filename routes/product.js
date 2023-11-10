@@ -50,6 +50,32 @@ router.get('/:id', async function(req, res){
 });
 
 /* Create product */
+router.post('/', async function(req, res) {
+    try {
+        console.log(req.body);
+        console.log(req.body.currentStock);
+        const result = await Product.create({
+            title: req.body.title,
+            price: req.body.price, 
+            description: req.body.description,
+            currentStock: req.body.currentStock
+            // Add tags
+        })
+        .then(
+            (result) => {
+              res.json(result);
+              res.writeHead(201);
+            }
+        ).catch((error) => {
+          console.log(error);
+          res.writeHead(404);
+        });
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+})
 
 /* Update product */
 
