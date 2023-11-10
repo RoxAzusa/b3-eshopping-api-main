@@ -45,4 +45,26 @@ router.get('/:id', async function(req, res){
     }
 });
 
+/* Create product */
+router.post('/', async function(req, res) {
+    try {
+        const result = await Tag.create({
+            name: req.body.name
+        })
+        .then(
+            (result) => {
+              res.json(result);
+              res.writeHead(201);
+            }
+        ).catch((error) => {
+          console.log(error);
+          res.writeHead(404);
+        });
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+});
+
 module.exports = router;
