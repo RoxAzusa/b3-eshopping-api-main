@@ -45,7 +45,7 @@ router.get('/:id', async function(req, res){
     }
 });
 
-/* Create product */
+/* Create tag */
 router.post('/', async function(req, res) {
     try {
         const result = await Tag.create({
@@ -55,6 +55,33 @@ router.post('/', async function(req, res) {
             (result) => {
               res.json(result);
               res.writeHead(201);
+            }
+        ).catch((error) => {
+          console.log(error);
+          res.writeHead(404);
+        });
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+});
+
+/* Update tag */
+router.patch('/:id', async function(req, res) {
+    try {
+        const result = await Tag.update({
+            name: req.body.name
+        },
+        {
+            where: {
+                id : req.params.id,
+            }
+        }) 
+        .then(
+            (result) => {
+              res.json(result);
+              res.writeHead(200);
             }
         ).catch((error) => {
           console.log(error);
