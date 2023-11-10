@@ -25,4 +25,24 @@ router.get('/', async function(req, res){
     }
 });
 
+/* Get tag by id */
+router.get('/:id', async function(req, res){
+    try {
+        const tag = await Tag.findByPk(req.params.id)
+        .then(
+            (tag) => {
+              res.json(tag);
+              res.writeHead(200);
+            }
+        ).catch((error) => {
+          console.log(error);
+          res.writeHead(404);
+        });
+        res.json(tag);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+});
+
 module.exports = router;
