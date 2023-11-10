@@ -1,0 +1,12 @@
+# Config file
+.env
+
+# JS dependencies
+node_modules/
+
+# Various text editor configuration files
+.tm_properties
+*.komodoproject
+*.sublime*
+.idea/
+.vscode/
