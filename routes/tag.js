@@ -5,6 +5,24 @@ const router = express.Router();
 // Par défaut, require ira chercher le fichier index.js
 const { Tag } = require('../models');
 
-
+/* Get all tags */
+router.get('/', async function(req, res){
+    try {
+        const tags = await Tag.findAll()
+        .then(
+            (tags) => {
+              res.json(tags);
+              res.writeHead(200);
+            }
+        ).catch((error) => {
+          console.log(error);
+          res.writeHead(404);
+        });
+        res.json(tags);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+});
 
 module.exports = router;
