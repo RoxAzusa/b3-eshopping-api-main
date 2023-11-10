@@ -52,8 +52,6 @@ router.get('/:id', async function(req, res){
 /* Create product */
 router.post('/', async function(req, res) {
     try {
-        console.log(req.body);
-        console.log(req.body.currentStock);
         const result = await Product.create({
             title: req.body.title,
             price: req.body.price, 
@@ -75,9 +73,38 @@ router.post('/', async function(req, res) {
         console.log(error);
         res.status(500);
     }
-})
+});
 
 /* Update product */
+router.patch('/:id', async function(req, res) {
+    try {
+        const result = await Product.update({
+            title: req.body.title,
+            price: req.body.price, 
+            description: req.body.description,
+            currentStock: req.body.currentStock
+            // Add tags
+        },
+        {
+            where: {
+                id : req.params.id,
+            }
+        }) 
+        .then(
+            (result) => {
+              res.json(result);
+              res.writeHead(200);
+            }
+        ).catch((error) => {
+          console.log(error);
+          res.writeHead(404);
+        });
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+});
 
 /* Delete product */
 
