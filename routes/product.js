@@ -5,8 +5,25 @@ const router = express.Router();
 // Par défaut, require ira chercher le fichier index.js
 const { Product } = require('../models');
 
-router.get('/', function(req, res){
-    res.send('Liste des produits');
+/* Get all products */
+router.get('/', async function(req, res){
+    try {
+        const results = await Product.findAll({
+            attributes : ['title', 'price']
+        });
+        res.json(results);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
 });
+
+/* Get product by id */
+
+/* Create product */
+
+/* Update product */
+
+/* Delete product */
 
 module.exports = router;
