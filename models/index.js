@@ -6,7 +6,6 @@ const Tag = require('./Tag');
 const ShoppingCart = require('./ShoppingCart');
 const Order = require('./Order');
 const User = require('./User');
-const Right = require('./Right');
 
 // Déclaration des relations
 Product.belongsToMany(Tag, { through: 'Product_Tag' });
@@ -21,11 +20,8 @@ Order.belongsToMany(Product, {through: 'Order_Product'});
 User.hasMany(Order);
 Order.belongsTo(User);
 
-Right.hasMany(User);
-User.belongsTo(Right);
-
 // Synchronisation de la base
-// sequelize.sync({alter: true});
+//sequelize.sync({alter: true});
 
 
 module.exports = {

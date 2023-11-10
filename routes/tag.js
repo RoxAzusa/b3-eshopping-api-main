@@ -103,16 +103,7 @@ router.delete('/:id', async function(req, res) {
                 id : req.params.id,
             }
         }) 
-        .then(
-            (result) => {
-              res.json(result);
-              res.writeHead(200);
-            }
-        ).catch((error) => {
-          console.log(error);
-          res.writeHead(404);
-        });
-        res.json(result);
+        res.status(200).json("Deletion successful");
     } catch (error) {
         console.log(error);
         res.status(500);

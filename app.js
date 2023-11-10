@@ -14,6 +14,7 @@ require('./models/index.js');
 const indexRouter = require('./routes/index.js');
 const productRouter = require('./routes/product.js');
 const tagRouter = require('./routes/tag.js');
+const userRouter = require('./routes/user.js');
 
 const app = express();
 
@@ -25,5 +26,6 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/product', productRouter);
 app.use('/tag', tagRouter);
+app.use('/user', userRouter);
 
 module.exports = app;
