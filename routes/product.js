@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('../middlewares/auth');
+
+router.use(middleware.authenticateUser);
 
 // Importation d'un modèle Sequelize dans une vue.
 // Par défaut, require ira chercher le fichier index.js
@@ -49,6 +52,19 @@ router.get('/:id', async function(req, res){
 /* Create product */
 router.post('/', async function(req, res) {
     try {
+        // Check if user is authenticated
+        if (!req.user) {
+            res.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+
+        // Check if the user exist in database
+        const existingUser = await User.findByPk(req.user.id);
+        if (!existingUser) {
+            res.status(401).json({ error: 'Unauthorized' });
+            return;
+        }
+
         const { title, price, description, currentStock, tags } = req.body;
 
         // Create Product
