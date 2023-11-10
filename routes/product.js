@@ -107,5 +107,28 @@ router.patch('/:id', async function(req, res) {
 });
 
 /* Delete product */
+router.delete('/:id', async function(req, res) {
+    try {
+        const result = await Product.destroy(
+        {
+            where: {
+                id : req.params.id,
+            }
+        }) 
+        .then(
+            (result) => {
+              res.json(result);
+              res.writeHead(200);
+            }
+        ).catch((error) => {
+          console.log(error);
+          res.writeHead(404);
+        });
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500);
+    }
+});
 
 module.exports = router;
